@@ -256,10 +256,25 @@ def fetchPage(key, page, additional_info = {}):
     prefix = key.getPrefix()
     info = {}
     info.update(key.getInfo())
-    info.update(additional_info)
+    # info.update(additional_info)
     
+    headers = {"User-Agent": 
+               "Euris' Loot Buyback Program 1.0 [kristoffer.langeland.knudsen@gmail.com]"}
+
+    print("/" + prefix + "/" + page + "?" + urllib.urlencode(info))
+
     conn = httplib.HTTPSConnection("api.eveonline.com")
-    conn.request("GET", "/" + prefix + "/" + page + "?" + urllib.urlencode(info))
+    
+    if additional_info:
+        conn.request("POST", 
+                     "/" + prefix + "/" + page + "?" + urllib.urlencode(info),
+                     body = urllib.urlencode(additional_info),
+                     headers = headers)
+    else:
+        conn.request("GET", 
+                     "/" + prefix + "/" + page + "?" + urllib.urlencode(info), 
+                     headers = headers)
+
     response = conn.getresponse()
 
 

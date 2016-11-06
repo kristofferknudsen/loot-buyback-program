@@ -7,8 +7,8 @@
     <!-- 24 hours = 86400 seconds -->
     <core>
       <timer>86400</timer>
-      <version>https://raw.githubusercontent.com/Private/CollectiveRefiningProgram/stable/version</version>
-      <url>https://github.com/Private/CollectiveRefiningProgram/archive/stable.zip</url>
+      <version>https://raw.githubusercontent.com/kristofferknudsen/loot-buyback-program/stable/version</version>
+      <url>https://github.com/kristofferknudsen/loot-buyback-program/archive/stable.zip</url>
     </core>
     <database>
       <timer>86400</timer>
