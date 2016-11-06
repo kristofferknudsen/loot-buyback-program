@@ -122,30 +122,27 @@ def main(userconfig):
     print("")
     print("Generating Output...")        
 
-    totallyNotFakeContainer = FakeContainer([bp for bp in blueprints
-                                             if not bp.isBPO()])
-
-    for c in [totallyNotFakeContainer]: #containers:
+    for c in containers:
 
         if not c.contents:
             continue
 
         print("")
+        print("")
         print(c.name)
 
         materials = {}
+
+        context = blueprint.MaterialContext()
 
         for bp in c.contents:
 
             if bp.isBPO():
                 continue
 
-            for typeID, quantity in bp.getRecursiveMaterials().items():
-                if typeID in materials:
-                    materials[typeID] += quantity
-                else:
-                    materials[typeID] = quantity
+            context.add_blueprint(bp)
 
+        context.cook()
 
         def getTypeName(typeID):
             cursor = database.cursor()
@@ -158,17 +155,23 @@ def main(userconfig):
             return typeName
 
         required = { getTypeName(typeID): quantity
-                     for typeID, quantity in materials.items() }
+                     for typeID, quantity in context.materials.items() }
+
+        surplus = { getTypeName(typeID): quantity
+                    for typeID, quantity in context.surplus.items() }
             
         print("")
-        print("")
-        print("")
-        print("")
-        print("")
+        print("Materials Needed:")
         
         for typeName, quantity in required.items():
             print("{:<16,}\t{}".format(quantity, typeName))
-    
+   
+        print("")
+        print("Materials left over after construction:")
+        
+        for typeName, quantity in surplus.items():
+            print("{:<16,}\t{}".format(quantity, typeName))
+
 
 if __name__ == "__main__":
 

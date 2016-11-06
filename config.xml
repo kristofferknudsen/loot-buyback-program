@@ -60,6 +60,13 @@
       <default>0.95</default>
     </stationProductionEfficiency>
 
+    <stationTimeEfficiency>
+      <default>0.40</default>
+    </stationTimeEfficiency>
+
+    <maxBuildDuration>
+      <default>2592000</default> <!-- 30 days -->
+    </maxBuildDuration>
 
     <!-- Number of seconds the market data is cached. 3600 seconds is one hour, 
 	 human time -->
